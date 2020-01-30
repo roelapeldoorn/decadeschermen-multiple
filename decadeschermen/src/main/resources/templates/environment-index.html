@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.springframework.org/security/tags">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Variabele indeling DECADE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/decadeschermen/css/bootstrap.min.css">
+    
+</head>
+
+<body>
+    <div class="container my-2">
+    	<p />
+       	<h3>Omgevingen</h3>
+        <div class="card">
+        	<div class="card-body">
+                <div th:switch="${environments}" class="container my-5">
+                    <div class="col-md-10">
+                        <p th:case="null">Er zijn nog geen omgevingen aanwezig ...</p>
+	                    <p><a href="/decadeschermen/environments/signup" class="btn btn-primary">Nieuwe omgeving</a></p>
+                        <div th:case="*">
+                            <table class="table table-striped table-responsive-md">
+                                <thead>
+                                    <tr>
+                                    	<th>Omgeving</th>
+                                        <th>jdbc-URL</th>
+                                        <th>Type</th>
+                                        <th>Gebruiker</th>
+                                        <th colspan="3">Acties</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="environment : ${environments}">
+                                    	<td th:text="${environment.environmentcode}"></td>
+                                        <td th:text="${environment.environmenturl}"></td>
+                                        <td th:text="${environment.environmentdatabasetype}"></td>
+                                        <td th:text="${environment.environmentuser}"></td>
+                                        <td>
+                                        	<a th:href="@{/environments/edit/{environmentid}(environmentid=${environment.environmentid})}" class="btn btn-primary">Wijzig</a>
+                                        </td>
+                                        <td>
+                                        	<a th:href="@{/environments/delete/{environmentid}(environmentid=${environment.environmentid})}" class="btn btn-primary">Verwijder</a>
+                                        </td>
+                                        <td>
+                                        	<a th:href="@{/applicaties/{environmentid}(environmentid=${environment.environmentid})}" class="btn btn-primary">Applicaties</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p />
+        <div id="navbar" class="collapse navbar-collapse">
+			<ul class="nav navbar-nav">
+				<li sec:authorize="isAuthenticated()"><a class="btn btn-primary" th:href="@{/logout}">Uitloggen</a></li>
+			</ul>
+		</div>
+    </div>
+    
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+	<script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+    
+</body>
+</html>
