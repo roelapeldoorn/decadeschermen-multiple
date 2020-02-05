@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.springframework.org/security/tags">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Variabele indeling DECADE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/decadeschermen/css/bootstrap.min.css">
+</head>
+
+<body>
+	<th:block th:replace="fragments/common-header :: header"/>
+    <div class="container my-2">
+    
+       	<h3>Omgeving</h3>
+        <div class="card">
+        	<div class="card-body">
+				<div class="row">
+             		<div class="form-group col-md-6">
+             			<table class="table-borderless table-sm">
+                            <tbody>
+                                <tr>
+                                    <th>Omgeving</th>
+                                    <td th:text="${environment.environmentcode}"></td>
+                                </tr>
+                                <tr>
+                                    <th>jdbc-URL</th>
+                                    <td th:text="${environment.environmenturl}"></td>
+                                </tr>
+                                <tr>
+                                    <th>Type</th>
+                                    <td th:text="${environment.environmentdatabasetype}"></td>
+                                </tr>
+                                <tr>
+                                    <th>Gebruiker</th>
+                                    <td th:text="${environment.environmentuser}"></td>
+                                </tr>
+                 			</tbody>
+                 		</table>
+	             	</div>
+				</div>        	
+            </div>
+		</div>
+    	<p />
+       	<h3>Modules</h3>
+        <div class="card">
+        	<div class="card-body">
+                <div th:switch="${modules}" class="container my-5">
+                    <div class="col-md-10">
+                        <p th:case="null">Er zijn nog geen modules aanwezig ...</p>
+                        <div th:case="*">
+                            <table class="table table-striped table-responsive-md">
+                                <thead>
+                                    <tr>
+                                    	<th>ID</th>
+                                        <th>Module</th>
+                                        <th>Geautoriseerd</th>
+                                        <th>Naam</th>
+                                        <th colspan="3">Acties</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="module : ${modules}">
+                                    	<td th:text="${module.ronid}"></td>
+                                        <td th:text="${module.ronoption}"></td>
+                                        <td th:text="${module.ronallowed}"></td>
+                                        <td th:text="${module.rondescription}"></td>
+                                        <td>
+                                        	<a th:href="@{/volgende_level/{ronid}(ronid=${module.ronid})}" class="btn btn-primary">Volgende niveau</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <th:block th:replace="fragments/common-footer :: footer"/>
+    
+</body>
+</html>

@@ -5,6 +5,8 @@ import java.util.Locale;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,11 +22,11 @@ import nl.itris.decadeschermen.mysql.domain.DecadeEnvironment;
 import nl.itris.decadeschermen.mysql.repository.EnvironmentRepository;
 
 @Controller
-@RequestMapping("/environments/")
+@RequestMapping("/environments")
 public class EnvironmentController {
 
     private final EnvironmentRepository environmentRepository;
-
+    
     @Autowired
     public EnvironmentController(EnvironmentRepository environmentRepository) {
         this.environmentRepository = environmentRepository;
@@ -32,8 +34,14 @@ public class EnvironmentController {
     
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home(Locale locale, Model model) {
+    	
     	model.addAttribute("environments", environmentRepository.findAll());
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	model.addAttribute("authenticated", authentication);
+           	
         return "environment-index";
+        
     }
 
     @GetMapping("signup")
@@ -129,7 +137,8 @@ public class EnvironmentController {
     	
     	environmentRepository.delete(environment);
         
-    	model.addAttribute("environmentd", environmentRepository.findAll());
+    	model.addAttribute("environments", environmentRepository.findAll());
+    	
         return "environment-index";
         
     }    

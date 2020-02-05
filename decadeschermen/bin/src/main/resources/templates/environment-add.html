@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Variabele indeling DECADE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/decadeschermen/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container my-5">
+        <h3>Nieuwe omgeving</h3>
+        <div class="card">
+            <div class="card-body">
+                <div class="col-md-10">
+                    <form action="#" th:action="@{/environments/add}" th:object="${environment}" method="post">
+                        <div class="row">
+
+                            <div class="form-group col-md-8">
+                                <label for="environmentcustomercode" class="col-form-label">Klantcode</label>
+                                <input type="text" th:field="*{environmentcustomercode}" size="4" maxlength="4" class="form-control" id="environmentcustomercode" placeholder="Klantcode" />
+                                <span th:if="${#fields.hasErrors('environmentcustomercode')}" th:errors="*{environmentcustomercode}" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-8">
+                                <label for="environmentotap" class="col-form-label">OTAP-code</label>
+                                <select th:field="*{environmentotap}">
+                     				<option th:each="otapcode : ${otapcodes}" th:value="${otapcode.otapcode}" th:utext="${otapcode.otapname}"/>
+              					</select>
+                                <span th:if="${#fields.hasErrors('environmentotap')}" th:errors="*{environmentotap}" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-8">
+                                <label for="environmentsequence" class="col-form-label">Volgnummer</label>
+                                <select th:field="*{environmentsequence}">
+                     				<option th:each="sequence : ${sequences}" th:value="${sequence.sequencecode}" th:utext="${sequence.sequencename}"/>
+              					</select>
+                                <span th:if="${#fields.hasErrors('environmentsequence')}" th:errors="*{environmentsequence}" class="text-danger"></span>
+                            </div>
+                        
+                            <div class="form-group col-md-8">
+                                <label for="environmenturl" class="col-form-label">jdbc-URL</label>
+                                <input type="text" th:field="*{environmenturl}" maxlength="128" size="48" class="form-control" id="environmenturl" placeholder="jdbc-URL" />
+                                <span th:if="${#fields.hasErrors('environmenturl')}" th:errors="*{environmenturl}" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-8">
+                                <label for="environmentdatabasetype" class="col-form-label">Database type</label>
+                                <select th:field="*{environmentdatabasetype}">
+                     				<option th:each="databasetype : ${databasetypes}" th:value="${databasetype.databasecode}" th:utext="${databasetype.databasename}"/>
+              					</select>
+                                <span th:if="${#fields.hasErrors('environmentdatabasetype')}" th:errors="*{environmentdatabasetype}" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-8">
+                                <label for="environmentuser" class="col-form-label">Gebruiker</label>
+                                <input type="text" th:field="*{environmentuser}" maxlength="32" size="32" class="form-control" id="environmentuser" placeholder="Gebruiker" />
+                                <span th:if="${#fields.hasErrors('environmentuser')}" th:errors="*{environmentuser}" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-8">
+                                <label for="environmentpassword" class="col-form-label">Wachtwoord</label>
+                                <input type="text" th:field="*{environmentpassword}" maxlength="32" size="32" class="form-control" id="environmentpassword" placeholder="Wachtwoord" />
+                                <span th:if="${#fields.hasErrors('environmentpassword')}" th:errors="*{environmentpassword}" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <input type="submit" class="btn btn-primary" value="Opslaan">
+                                <input type="button" class="btn btn-primary" value="Annuleer" onclick="history.back()">
+                            </div>
+                            <div class="form-group col-md-8"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
