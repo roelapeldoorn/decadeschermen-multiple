@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.zaxxer.hikari.HikariDataSource;
-
 import nl.itris.decadeschermen.mysql.domain.DecadeEnvironment;
 import nl.itris.decadeschermen.mysql.repository.EnvironmentRepository;
 import nl.itris.decadeschermen.oracle.OracleDbConfig;
@@ -31,14 +29,14 @@ public class ModulesController {
     	this.environmentRepository = environmentRepository;
         this.moduleRepository = moduleRepository;
     }
-    
+
     @GetMapping("/{environmentid}")
     public String showModules(@PathVariable("environmentid") long environmentid, Model model) {
 
     	this.decadeEnvironment = environmentRepository.findById(environmentid)
     			.orElseThrow(() -> new IllegalArgumentException("Omgeving met ID: " + environmentid + " niet gevonden!"));
     	model.addAttribute("environment", this.decadeEnvironment);
-
+    	
     	model.addAttribute("modules", moduleRepository.findAll());
  
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -47,5 +45,6 @@ public class ModulesController {
         return "module-index";
     	
     }
+
 
 }

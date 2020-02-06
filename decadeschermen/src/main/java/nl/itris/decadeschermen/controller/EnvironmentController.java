@@ -62,8 +62,14 @@ public class EnvironmentController {
 
     @GetMapping("list")
     public String showEnvironmentListForm(Model model) {
-        model.addAttribute("environments", environmentRepository.findAll());
-        return "environment-index";
+        
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	model.addAttribute("authenticated", authentication);
+
+    	model.addAttribute("environments", environmentRepository.findAll());
+
+    	return "environment-index";
+    
     }
 
     @PostMapping("add")
@@ -83,6 +89,7 @@ public class EnvironmentController {
         }
 
         environmentRepository.save(environment);
+        
         return "redirect:list";
         
     }
@@ -123,7 +130,10 @@ public class EnvironmentController {
         }
 
         environmentRepository.save(environment);
-  
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	model.addAttribute("authenticated", authentication);
+
         model.addAttribute("environments", environmentRepository.findAll());
         
         return "environment-index";
@@ -137,6 +147,9 @@ public class EnvironmentController {
     	
     	environmentRepository.delete(environment);
         
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	model.addAttribute("authenticated", authentication);
+
     	model.addAttribute("environments", environmentRepository.findAll());
     	
         return "environment-index";

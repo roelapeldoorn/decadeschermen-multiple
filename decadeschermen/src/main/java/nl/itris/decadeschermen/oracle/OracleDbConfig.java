@@ -26,27 +26,27 @@ import com.zaxxer.hikari.HikariDataSource;
 @EnableJpaRepositories(
   entityManagerFactoryRef = "oracleEntityManagerFactory",
   transactionManagerRef = "oracleTransactionManager",
-  basePackages = { "nl.itris.decadeschermen.oracle.repository" }
-)
+  basePackages = { "nl.itris.decadeschermen.oracle.repository" })
+
 public class OracleDbConfig {
+
+  DataSource ds = DataSourceBuilder.create().build();
  
   @Lazy	
   @Bean(name = "oracleDataSource")
-//  @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+  @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
   @ConfigurationProperties(prefix = "oracle.datasource")
-  public DataSource dataSource(HikariDataSource oracleDataSource) {
-	  
-	  System.out.println("Getting an Oracle connection for " + oracleDataSource.getJdbcUrl());
+  public DataSource dataSource() {
 	  
 	  return DataSourceBuilder.create().build();
+
   }
-  
+
   @Bean(name = "oracleEntityManagerFactory")
   public LocalContainerEntityManagerFactoryBean 
   oracleEntityManagerFactory(
     EntityManagerFactoryBuilder builder,
-    @Qualifier("oracleDataSource") DataSource dataSource
-  ) {
+    @Qualifier("oracleDataSource") DataSource dataSource) {
     return
       builder
         .dataSource(dataSource)
@@ -62,4 +62,5 @@ public class OracleDbConfig {
   ) {
     return new JpaTransactionManager(oracleEntityManagerFactory);
   }
+  
 }
