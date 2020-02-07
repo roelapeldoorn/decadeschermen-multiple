@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.springframework.org/security/tags">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Variabele indeling DECADE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/decadeschermen/css/bootstrap.min.css">
+</head>
+
+<body>
+	<th:block th:replace="fragments/common-header :: common-header"/>
+    <div class="container my-2">
+ 		<th:block th:replace="fragments/common-environment :: common-environment"/>   
+    	<p />
+       	<h3>Schermen</h3>
+        <div class="card">
+        	<div class="card-body">
+                <div th:switch="${modules}" class="container my-5">
+                    <div class="col-md-10">
+                        <p th:case="null">Er zijn geen schermen aanwezig ...</p>
+                        <div th:case="*">
+                            <table class="table table-striped table-responsive-md">
+                                <thead>
+                                    <tr>
+                                        <th>Verkorte naam</th>
+                                        <th colspan="1">Actie</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="schermdefinitie : ${schermdefinities}">
+                                    	<td th:text="${schermdefinitie.stpdverkortenaam}"></td>
+                                        <td>
+                                        	<a th:href="@{/schermgroepen/{stpdverkortenaam}(stpdverkortenaam=${schermdefinitie.stpdverkortenaam})}" class="btn btn-primary">Naar groepen</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <th:block th:replace="fragments/common-footer :: common-footer"/>
+    
+</body>
+</html>
