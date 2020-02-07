@@ -10,38 +10,9 @@
 </head>
 
 <body>
-	<th:block th:replace="fragments/common-header :: header"/>
+	<th:block th:replace="fragments/common-header :: common-header"/>
     <div class="container my-2">
-    
-       	<h3>Omgeving</h3>
-        <div class="card">
-        	<div class="card-body">
-				<div class="row">
-             		<div class="form-group col-md-6">
-             			<table class="table-borderless table-sm">
-                            <tbody>
-                                <tr>
-                                    <th>Omgeving</th>
-                                    <td th:text="${environment.environmentcode}"></td>
-                                </tr>
-                                <tr>
-                                    <th>jdbc-URL</th>
-                                    <td th:text="${environment.environmenturl}"></td>
-                                </tr>
-                                <tr>
-                                    <th>Type</th>
-                                    <td th:text="${environment.environmentdatabasetype}"></td>
-                                </tr>
-                                <tr>
-                                    <th>Gebruiker</th>
-                                    <td th:text="${environment.environmentuser}"></td>
-                                </tr>
-                 			</tbody>
-                 		</table>
-	             	</div>
-				</div>        	
-            </div>
-		</div>
+ 		<th:block th:replace="fragments/common-environment :: common-environment"/>   
     	<p />
        	<h3>Modules</h3>
         <div class="card">
@@ -79,7 +50,7 @@
         </div>
     </div>
     
-    <th:block th:replace="fragments/common-footer :: footer"/>
+    <th:block th:replace="fragments/common-footer :: common-footer"/>
     
 </body>
 </html>

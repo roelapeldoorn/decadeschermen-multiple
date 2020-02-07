@@ -3,7 +3,6 @@ package nl.itris.decadeschermen.oracle.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Immutable;
@@ -11,7 +10,6 @@ import org.hibernate.annotations.Immutable;
 @Entity
 @Immutable
 @Table(name = "RED_OPTIONS")
-@NamedQuery(name = "DecadeModule.findAll", query="select u from DecadeModule u order by u.ronoption")
 public class DecadeModule {
 
     @Id

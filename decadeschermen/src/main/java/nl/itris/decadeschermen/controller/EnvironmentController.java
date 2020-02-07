@@ -55,6 +55,9 @@ public class EnvironmentController {
     	model.addAttribute("databasetypes", databasetypeList.getDatabasetypes());
     	model.addAttribute("otapcodes", environmentList.getOTAPCodes());
     	model.addAttribute("sequences", environmentList.getSequences());
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	model.addAttribute("authenticated", authentication);
     	
         return "environment-add";
 
@@ -83,7 +86,10 @@ public class EnvironmentController {
         	model.addAttribute("databasetypes", databasetypeList.getDatabasetypes());
         	model.addAttribute("otapcodes", environmentList.getOTAPCodes());
         	model.addAttribute("sequences", environmentList.getSequences());
-        	
+
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        	model.addAttribute("authenticated", authentication);
+
             return "environment-add";
 
         }
@@ -107,6 +113,9 @@ public class EnvironmentController {
     	model.addAttribute("otapcodes", environmentList.getOTAPCodes());
     	model.addAttribute("sequences", environmentList.getSequences());
     	
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	model.addAttribute("authenticated", authentication);
+
     	return "environment-update";
         
     }
@@ -124,7 +133,10 @@ public class EnvironmentController {
         	model.addAttribute("databasetypes", databasetypeList.getDatabasetypes());
         	model.addAttribute("otapcodes", environmentList.getOTAPCodes());
         	model.addAttribute("sequences", environmentList.getSequences());
-        	
+
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        	model.addAttribute("authenticated", authentication);
+
             return "environment-update";
 
         }

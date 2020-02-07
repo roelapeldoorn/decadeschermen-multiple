@@ -4375,6 +4375,11 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
 	padding: 1.25rem
 }
 
+.card-body-environment {
+	padding: 0.5rem;
+	padding-left: 2.5rem
+}
+
 .card-body-footer {
 	padding: 0.5rem
 }
