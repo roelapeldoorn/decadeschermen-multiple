@@ -14,32 +14,31 @@
     <div class="container my-2">
  		<th:block th:replace="fragments/common-environment :: common-environment"/>   
     	<p />
-       	<h3>Schermen</h3>
+       	<h3>Modules</h3>
         <div class="card">
         	<div class="card-body">
-                <div th:switch="${schermdefinities}" class="container my-5">
+                <div th:switch="${modules}" class="container my-5">
                     <div class="col-md-10">
-                        <p th:case="null">Er zijn geen schermen aanwezig ...</p>
+                        <p th:case="null">Er zijn nog geen modules aanwezig ...</p>
                         <div th:case="*">
-							<form th:object="${zoekschermdefinitie}" method="post">
-            					<div>
-                					<input type="text" name="stpdverkortenaam" th:value="${stpdverkortenaam}">
-                					<input type="submit" class="btn btn-primary" value="Zoek">
-            					</div>
-        					</form>
-                            <p />
                             <table class="table table-striped table-responsive-md">
                                 <thead>
                                     <tr>
-                                        <th>Verkorte naam</th>
-                                        <th colspan="1">Actie</th>
+                                    	<th>ID</th>
+                                        <th>Module</th>
+                                        <th>Geautoriseerd</th>
+                                        <th>Naam</th>
+                                        <th colspan="3">Acties</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="schermdefinitie : ${schermdefinities}">
-                                    	<td th:text="${schermdefinitie.stpdverkortenaam}"></td>
+                                    <tr th:each="module : ${modules}">
+                                    	<td th:text="${module.ronid}"></td>
+                                        <td th:text="${module.ronoption}"></td>
+                                        <td th:text="${module.ronallowed}"></td>
+                                        <td th:text="${module.rondescription}"></td>
                                         <td>
-                                        	<a th:href="@{/schermgroepen/{stpdverkortenaam}(stpdverkortenaam=${schermdefinitie.stpdverkortenaam})}" class="btn btn-primary">Naar groepen</a>
+                                        	<a th:href="@{/volgende_level/{ronid}(ronid=${module.ronid})}" class="btn btn-primary">Volgende niveau</a>
                                         </td>
                                     </tr>
                                 </tbody>
