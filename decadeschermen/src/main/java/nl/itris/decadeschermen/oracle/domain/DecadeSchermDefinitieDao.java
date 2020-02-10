@@ -30,7 +30,9 @@ public class DecadeSchermDefinitieDao {
     
     	String SQL = "SELECT DISTINCT STPD_VERKORTE_NAAM FROM DF_STAND_SCHERM_DEFINITIES WHERE STPD_DSSM_CODE = 'DF'";
     	if (!zoekSchermDefinitie.equals("")) {
-    		SQL = SQL + " AND STPD_VERKORTE_NAAM LIKE '" + zoekSchermDefinitie + "%";
+    		SQL = SQL + " AND STPD_VERKORTE_NAAM LIKE '" + zoekSchermDefinitie + "%'";
+    	} else {
+    		SQL = SQL + " AND STPD_VERKORTE_NAAM = 'XXYYZZ'";
     	}
     	SQL = SQL + " ORDER BY STPD_VERKORTE_NAAM";
     	

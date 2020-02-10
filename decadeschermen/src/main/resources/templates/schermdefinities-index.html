@@ -17,14 +17,15 @@
        	<h3>Schermen</h3>
         <div class="card">
         	<div class="card-body">
-                <div th:switch="${schermdefinities}" class="container my-5">
                     <div class="col-md-10">
-                        <p th:case="null">Er zijn geen schermen aanwezig ...</p>
-                        <div th:case="*">
-							<form th:object="${zoekschermdefinitie}" method="post">
+							<form 
+								action="#" 
+								th:action="@{/schermdefinities/zoeken/{stpdverkortenaam}(stpdverkortenaam=${zoekschermdefinitie.stpdverkortenaam})}" 
+								th:object="${zoekschermdefinitie}" 
+								method="post">
             					<div>
-                					<input type="text" name="stpdverkortenaam" th:value="${stpdverkortenaam}">
-                					<input type="submit" class="btn btn-primary" value="Zoek">
+                					<input type="text" name="zoeknaar" th:value="${zoekschermdefinitie.stpdverkortenaam}">
+	               					<input type="submit" class="btn btn-primary" value="Zoek">
             					</div>
         					</form>
                             <p />
@@ -44,9 +45,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>
                     </div>
-                </div>
             </div>
         </div>
     </div>
