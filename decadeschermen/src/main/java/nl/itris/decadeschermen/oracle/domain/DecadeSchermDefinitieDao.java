@@ -1,21 +1,11 @@
 package nl.itris.decadeschermen.oracle.domain;
 
 import java.util.List;
-
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DecadeSchermDefinitieDao {
+public class DecadeSchermDefinitieDao extends DefaultDao {
 
-	private JdbcTemplate jdbcTemplateObject;  
-	  
-	public void setJdbcTemplate(JdbcTemplate jdbcTemplateObject) {
-		
-	    this.jdbcTemplateObject = jdbcTemplateObject;  
-	
-	}  
-	
     public DecadeSchermDefinitie findByVerkortenaam(String stpdverkortenaam) {
 
     	String SQL = "SELECT DISTINCT STPD_VERKORTE_NAAM FROM DF_STAND_SCHERM_DEFINITIES WHERE STPD_DSSM_CODE = 'DF' AND STPD_VERKORTE_NAAMN = ?";
@@ -42,5 +32,4 @@ public class DecadeSchermDefinitieDao {
     	
     }
 
-    
 }
