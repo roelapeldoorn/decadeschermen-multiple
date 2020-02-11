@@ -11,7 +11,7 @@ public class ViewpointOrganizationDao extends DefaultDao {
         
     	ViewpointOrganization viewpointOrganization = this.jdbcTemplateObject.queryForObject(SQL, new ViewpointOrganizationMapper());
 
-        return viewpointOrganization;
+    	return viewpointOrganization;
         
     }
     

@@ -12,7 +12,6 @@ public class OracleJdbcTemplateBuilder {
     public JdbcTemplate getJdbcTemplate(DecadeEnvironment decadeEnvironment) {
     	
     	DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create(); 
-    	
     	    	
     	dataSourceBuilder.driverClassName("oracle.jdbc.OracleDriver");
     	dataSourceBuilder.url(decadeEnvironment.getEnvironmenturl());
@@ -24,7 +23,5 @@ public class OracleJdbcTemplateBuilder {
         return new JdbcTemplate(dataSource);
     	
     }
-
-    
 
 }

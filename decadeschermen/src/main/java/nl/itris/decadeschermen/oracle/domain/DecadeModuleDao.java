@@ -2,19 +2,11 @@ package nl.itris.decadeschermen.oracle.domain;
 
 import java.util.List;
 
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DecadeModuleDao {
+public class DecadeModuleDao extends DefaultDao {
 
-	private JdbcTemplate jdbcTemplateObject;  
-	  
-	public void setJdbcTemplate(JdbcTemplate jdbcTemplateObject) {
-		
-	    this.jdbcTemplateObject = jdbcTemplateObject;  
-	
-	}  
 	
     public DecadeModule findByRonoption(String ronoption) {
 

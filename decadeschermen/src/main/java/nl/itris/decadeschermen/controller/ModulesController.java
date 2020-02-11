@@ -13,6 +13,7 @@ import nl.itris.decadeschermen.config.OracleJdbcTemplateBuilder;
 import nl.itris.decadeschermen.mysql.domain.DecadeEnvironment;
 import nl.itris.decadeschermen.mysql.repository.EnvironmentRepository;
 import nl.itris.decadeschermen.oracle.domain.DecadeModuleDao;
+import nl.itris.decadeschermen.oracle.domain.DecadeSchermDefinitieDao;
 import nl.itris.decadeschermen.oracle.domain.ViewpointOrganizationDao;
 
 @Controller
@@ -40,10 +41,12 @@ public class ModulesController {
     	ViewpointOrganizationDao viewpointOrganizationDao = new ViewpointOrganizationDao();
     	viewpointOrganizationDao.setJdbcTemplate(oracleJdbcTemplateBuilder.getJdbcTemplate(this.decadeEnvironment));
     	model.addAttribute("organization", viewpointOrganizationDao.findByRosid());
-
+    	viewpointOrganizationDao.closeJdbcTemplateConnection();
+    	 
     	DecadeModuleDao decadeModuleDao = new DecadeModuleDao();
     	decadeModuleDao.setJdbcTemplate(oracleJdbcTemplateBuilder.getJdbcTemplate(this.decadeEnvironment));
     	model.addAttribute("modules", decadeModuleDao.findAllRonoptions());
+    	decadeModuleDao.closeJdbcTemplateConnection();
  
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     	model.addAttribute("authenticated", authentication);
