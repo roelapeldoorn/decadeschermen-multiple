@@ -1,6 +1,7 @@
 package nl.itris.decadeschermen.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.zaxxer.hikari.HikariDataSource;
 
 import nl.itris.decadeschermen.config.OracleJdbcTemplateBuilder;
 import nl.itris.decadeschermen.mysql.domain.DecadeEnvironment;
@@ -40,17 +43,20 @@ public class SchermDefinitiesController {
     			.orElseThrow(() -> new IllegalArgumentException("Omgeving met ID: " + environmentid + " niet gevonden!"));
     	model.addAttribute("environment", this.decadeEnvironment);
 
-    	OracleJdbcTemplateBuilder oracleJdbcTemplateBuilder = new OracleJdbcTemplateBuilder();
-    	
+//    	OracleJdbcTemplateBuilder oracleJdbcTemplateBuilder = new OracleJdbcTemplateBuilder();
+//    	
     	ViewpointOrganizationDao viewpointOrganizationDao = new ViewpointOrganizationDao();
-    	viewpointOrganizationDao.setJdbcTemplate(oracleJdbcTemplateBuilder.getJdbcTemplate(this.decadeEnvironment));
-    	model.addAttribute("organization", viewpointOrganizationDao.findByRosid());
-    	viewpointOrganizationDao.closeJdbcTemplateConnection();
+//    	HikariDataSource hikariDataSource = oracleJdbcTemplateBuilder.getDataSource(this.decadeEnvironment);
+//    	JdbcTemplate jdbcTemplate = oracleJdbcTemplateBuilder.getJdbcTemplate(hikariDataSource);
+//    	
+//    	viewpointOrganizationDao.setJdbcTemplate(jdbcTemplate);
+    	model.addAttribute("organization", viewpointOrganizationDao.findByRosid(this.decadeEnvironment));
+//    	viewpointOrganizationDao.closeJdbcTemplateConnection();
     	 
     	DecadeSchermDefinitieDao decadeSchermDefinitieDao = new DecadeSchermDefinitieDao();
-    	decadeSchermDefinitieDao.setJdbcTemplate(oracleJdbcTemplateBuilder.getJdbcTemplate(this.decadeEnvironment));
-    	model.addAttribute("schermdefinities", decadeSchermDefinitieDao.findAllSchermDefinities(this.zoekSchermDefinitie));
-    	decadeSchermDefinitieDao.closeJdbcTemplateConnection();
+//    	decadeSchermDefinitieDao.setJdbcTemplate(jdbcTemplate);
+    	model.addAttribute("schermdefinities", decadeSchermDefinitieDao.findAllSchermDefinities(this.decadeEnvironment, this.zoekSchermDefinitie));
+//    	decadeSchermDefinitieDao.closeJdbcTemplateConnection();
  
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     	model.addAttribute("authenticated", authentication);
