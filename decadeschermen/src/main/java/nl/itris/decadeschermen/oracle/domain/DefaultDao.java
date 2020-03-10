@@ -33,12 +33,10 @@ public class DefaultDao {
 		
 		try {
 			Class.forName("oracle.jdbc.OracleDriver").newInstance();
-
 			connection = DriverManager.getConnection(
 					decadeEnvironment.getEnvironmenturl().trim(), 
 					decadeEnvironment.getEnvironmentuser().trim(), 
 					decadeEnvironment.getEnvironmentpassword().trim());
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new Exception("Verbinden met database " + decadeEnvironment.getEnvironmenturl().trim() + " is mislukt (" + 
@@ -52,11 +50,8 @@ public class DefaultDao {
 	public String closeConnection(Connection connection) throws Exception {
 		
 		try {
-			
 			connection.close();
-			
 			return "Verbinding met database is verbroken.";
-			
 		} catch (Exception e) {
 			throw new Exception("Verbreken verbinding is mislukt (" + e.getMessage() + ")");
 		}

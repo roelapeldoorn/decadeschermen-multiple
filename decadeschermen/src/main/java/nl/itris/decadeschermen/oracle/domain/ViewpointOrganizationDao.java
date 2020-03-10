@@ -1,7 +1,8 @@
 package nl.itris.decadeschermen.oracle.domain;
 
 import java.sql.Connection;
-import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 import org.springframework.stereotype.Component;
 
@@ -16,20 +17,26 @@ public class ViewpointOrganizationDao extends DefaultDao {
     	
     	try {
     		
-    		Connection connection = getConnection(decadeEnvironment);
-    		
     		String SQL = "SELECT ROS_ID, ROS_ORGANIZATION_NAME FROM V_RED_ORGANIZATIONS WHERE ROWNUM = 1";
             
-        	ViewpointOrganization viewpointOrganization = this.jdbcTemplateObject.queryForObject(SQL, new ViewpointOrganizationMapper());
+    		Connection connection = getConnection(decadeEnvironment);
+    		Statement statement = connection.createStatement();
+    		ResultSet rs = statement.executeQuery(SQL);
+    		
+    		if (rs.next()) {
+    			
+    			viewpointOrganization.setRosid(rs.getLong("ROS_ID"));
+    			viewpointOrganization.setRosorganisationname(rs.getString("ROS_ORGANIZATION_NAME"));
 
-    		
-    		
-    		
-    	} catch(SQLException sqlException) {
+    		}
+
+   			rs.close();
+   			statement.close();
+   			closeConnection(connection);
+   			
+    	} catch(Exception e) {
     		
     	}
-    	
-    	
 
     	return viewpointOrganization;
         
