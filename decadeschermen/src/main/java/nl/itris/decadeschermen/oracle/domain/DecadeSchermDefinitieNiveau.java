@@ -8,10 +8,10 @@ import org.hibernate.annotations.Immutable;
 
 @Entity
 @Immutable
-@Table(name = "DF_RUN_SCHERM_DEFINITIES")
+@Table(name = "DF_RUN_RUBRIEKEN_IN_SCHERM")
 public class DecadeSchermDefinitieNiveau {
 
-    @Column(name = "DRPR_VERKORTE_NAAM")
+    @Column(name = "DRSD_DRPR_VERKORTE_NAAM")
     private String verkortenaam;
     @Column(name = "DRSD_NIVEAU")
     private int niveau;

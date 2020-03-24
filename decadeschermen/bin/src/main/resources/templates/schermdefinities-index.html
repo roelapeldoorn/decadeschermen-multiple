@@ -37,9 +37,9 @@
                                 </thead>
                                 <tbody>
                                     <tr th:each="schermdefinitie : ${schermdefinities}">
-                                    	<td th:text="${schermdefinitie.stpdverkortenaam}"></td>
+                                    	<td th:text="${schermdefinitie.verkortenaam}"></td>
                                         <td>
-                                        	<a th:href="@{/schermgroepen/{stpdverkortenaam}(stpdverkortenaam=${schermdefinitie.stpdverkortenaam})}" class="btn btn-primary">Naar groepen</a>
+                                        	<a th:href="@{/schermdefinitiesniveaus/environmentid/{environmentid}/verkortenaam/{verkortenaam} (environmentid=${environment.environmentid},verkortenaam=${schermdefinitie.verkortenaam})}" class="btn btn-primary">Naar niveaus</a>
                                         </td>
                                     </tr>
                                 </tbody>

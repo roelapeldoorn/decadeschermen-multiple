@@ -11,28 +11,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import nl.itris.decadeschermen.mysql.domain.DecadeEnvironment;
 import nl.itris.decadeschermen.mysql.repository.EnvironmentRepository;
-import nl.itris.decadeschermen.oracle.domain.DecadeSchermDefinitieDao;
-import nl.itris.decadeschermen.oracle.domain.DecadeSchermDefinitieNiveauDao;
+import nl.itris.decadeschermen.oracle.domain.DecadeSchermDefinitieTypeDao;
 import nl.itris.decadeschermen.oracle.domain.ViewpointOrganizationDao;
 
 @Controller
-@RequestMapping("/schermdefinitiesniveaus")
-public class SchermDefinitiesNiveausController {
+@RequestMapping("/schermdefinitiestypes")
+public class SchermDefinitiesTypesController {
 
 	private final EnvironmentRepository environmentRepository;
 
 	DecadeEnvironment decadeEnvironment = new DecadeEnvironment();
     
     @Autowired
-    public SchermDefinitiesNiveausController(EnvironmentRepository environmentRepository) {
+    public SchermDefinitiesTypesController(EnvironmentRepository environmentRepository) {
     	this.environmentRepository = environmentRepository;
     }
 
     
-    @GetMapping("/environmentid/{environmentid}/verkortenaam/{verkortenaam}")
-    public String showSchermDefinitiesNiveaus(
+    @GetMapping("/environmentid/{environmentid}/verkortenaam/{verkortenaam}/niveau/{niveau}")
+    public String showSchermDefinitiesTypes(
     		@PathVariable("environmentid") long environmentid, 
     		@PathVariable("verkortenaam") String verkortenaam, 
+    		@PathVariable("niveau") int niveau, 
     		Model model) {
  
     	this.decadeEnvironment = environmentRepository.findById(environmentid).orElseThrow(() -> new IllegalArgumentException("Omgeving met ID: " + environmentid + " niet gevonden!"));
@@ -44,13 +44,10 @@ public class SchermDefinitiesNiveausController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     	model.addAttribute("authenticated", authentication);
 
-    	DecadeSchermDefinitieDao decadeSchermDefinitieDao = new DecadeSchermDefinitieDao();
-    	model.addAttribute("schermdefinitie", decadeSchermDefinitieDao.findByVerkortenaam(this.decadeEnvironment, verkortenaam));
+    	DecadeSchermDefinitieTypeDao decadeSchermDefinitieTypeDao = new DecadeSchermDefinitieTypeDao();
+    	model.addAttribute("schermdefinitiestypes", decadeSchermDefinitieTypeDao.findAllSchermDefinitieTypes(decadeEnvironment, verkortenaam, niveau));
     	
-    	DecadeSchermDefinitieNiveauDao decadeSchermDefinitieNiveauDao = new DecadeSchermDefinitieNiveauDao();
-    	model.addAttribute("schermdefinitiesniveaus", decadeSchermDefinitieNiveauDao.findAllSchermDefinitieNiveaus(this.decadeEnvironment, verkortenaam));
-    	
-        return "schermdefinitiesniveaus-index";
+        return "schermdefinitiestypes-index";
 
     }
     

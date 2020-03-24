@@ -14,7 +14,7 @@
     <div class="container my-2">
  		<th:block th:replace="fragments/common-environment :: common-environment"/>   
     	<p />
-       	<h3>Scherm / Niveaus</h3>
+       	<h3>Scherm / Niveau / Types</h3>
         <div class="card">
         	<div class="card-body">
                     <div class="col-md-10">
@@ -23,15 +23,17 @@
                                     <tr>
                                         <th>Verkorte naam</th>
                                         <th>Niveau</th>
+                                        <th>Type</th>
                                         <th colspan="1">Actie</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="schermdefinitiesniveau : ${schermdefinitiesniveaus}">
-                                    	<td th:text="${schermdefinitiesniveau.verkortenaam}"></td>
-                                    	<td th:text="${schermdefinitiesniveau.niveau}"></td>
+                                    <tr th:each="schermdefinitiestype : ${schermdefinitiestypes}">
+                                    	<td th:text="${schermdefinitiestype.verkortenaam}"></td>
+                                    	<td th:text="${schermdefinitiestype.niveau}"></td>
+                                    	<td th:text="${schermdefinitiestype.typeOmschrijving}"></td>
                                         <td>
-                                        	<a th:href="@{/schermdefinitiestypes/environmentid/{environmentid}/verkortenaam/{verkortenaam}/niveau/{niveau} (environmentid=${environment.environmentid},verkortenaam=${schermdefinitiesniveau.verkortenaam},niveau=${schermdefinitiesniveau.niveau})}" class="btn btn-primary">Naar types</a>
+                                        	<a th:href="@{/schermdefinitiestypes/environmentid/{environmentid}/verkortenaam/{verkortenaam}/niveau/{niveau}/type/{type} (environmentid=${environment.environmentid},verkortenaam=${schermdefinitiestype.verkortenaam},niveau=${schermdefinitiestype.niveau},type=${schermdefinitiestype.type})}" class="btn btn-primary">Naar rubrieken</a>
                                         </td>
                                     </tr>
                                 </tbody>
