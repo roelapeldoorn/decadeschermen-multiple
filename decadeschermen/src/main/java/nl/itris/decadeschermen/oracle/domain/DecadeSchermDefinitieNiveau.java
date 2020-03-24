@@ -9,17 +9,24 @@ import org.hibernate.annotations.Immutable;
 @Entity
 @Immutable
 @Table(name = "DF_RUN_SCHERM_DEFINITIES")
-public class DecadeSchermDefinitie {
+public class DecadeSchermDefinitieNiveau {
 
     @Column(name = "DRPR_VERKORTE_NAAM")
     private String verkortenaam;
+    @Column(name = "DRSD_NIVEAU")
+    private int niveau;
 
 	public String getVerkortenaam() {
 		return verkortenaam;
 	}
-
 	public void setVerkortenaam(String verkortenaam) {
 		this.verkortenaam = verkortenaam;
 	}
-    
+	public int getNiveau() {
+		return niveau;
+	}
+	public void setNiveau(int niveau) {
+		this.niveau = niveau;
+	}
+	
 }
