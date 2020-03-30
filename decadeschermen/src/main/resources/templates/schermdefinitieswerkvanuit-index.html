@@ -14,7 +14,7 @@
     <div class="container my-2">
  		<th:block th:replace="fragments/common-environment :: common-environment"/>   
     	<p />
-       	<h3>Scherm / Niveau / Types</h3>
+       	<h3>Scherm / Niveau / Type / Werk vanuit</h3>
         <div class="card">
         	<div class="card-body">
                     <div class="col-md-10">
@@ -24,16 +24,18 @@
                                         <th>Verkorte naam</th>
                                         <th>Niveau</th>
                                         <th>Type</th>
+                                        <th>Werk vanuit</th>
                                         <th colspan="1">Actie</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="schermdefinitiestype : ${schermdefinitiestypes}">
-                                    	<td th:text="${schermdefinitiestype.verkortenaam}"></td>
-                                    	<td th:text="${schermdefinitiestype.niveau}"></td>
-                                    	<td th:text="${schermdefinitiestype.typeOmschrijving}"></td>
+                                    <tr th:each="schermdefinitiewerkvanuit : ${schermdefinitieswerkvanuit}">
+                                    	<td th:text="${schermdefinitiewerkvanuit.verkortenaam}"></td>
+                                    	<td th:text="${schermdefinitiewerkvanuit.niveau}"></td>
+                                    	<td th:text="${schermdefinitiewerkvanuit.typeOmschrijving}"></td>
+                                    	<td th:text="${schermdefinitiewerkvanuit.werkVanuit}"></td>
                                         <td>
-                                        	<a th:href="@{/schermdefinitieswerkvanuit/environmentid/{environmentid}/verkortenaam/{verkortenaam}/niveau/{niveau}/type/{type} (environmentid=${environment.environmentid},verkortenaam=${schermdefinitiestype.verkortenaam},niveau=${schermdefinitiestype.niveau},type=${schermdefinitiestype.type})}" class="btn btn-primary">Naar werk vanuit</a>
+                                        	<a th:href="@{/schermdefinitiesrubrieken/environmentid/{environmentid}/verkortenaam/{verkortenaam}/niveau/{niveau}/type/{type}/werkVanuit/{werkVanuit} (environmentid=${environment.environmentid},verkortenaam=${schermdefinitiewerkvanuit.verkortenaam},niveau=${schermdefinitiewerkvanuit.niveau},type=${schermdefinitiewerkvanuit.type},werkVanuit=${schermdefinitiewerkvanuit.werkVanuit})}" class="btn btn-primary">Naar rubrieken</a>
                                         </td>
                                     </tr>
                                 </tbody>
