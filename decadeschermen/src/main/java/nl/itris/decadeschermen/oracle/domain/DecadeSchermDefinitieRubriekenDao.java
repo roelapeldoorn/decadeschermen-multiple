@@ -50,21 +50,89 @@ public class DecadeSchermDefinitieRubriekenDao extends DefaultDao {
         
     }
 
+    public DecadeSchermDefinitieRubrieken findRubriek(
+    		DecadeEnvironment decadeEnvironment, 
+    		DecadeSchermDefinitieRubrieken decadeSchermDefinitieRubriek) {
+    		
+    	try {
+    		
+    		String SQL = "";
+    		
+    		Connection connection = getConnection(decadeEnvironment);
+    		PreparedStatement preparedStatement = connection.prepareStatement(getSQLRubriek());
+    		
+    		preparedStatement.setString(1, decadeSchermDefinitieRubriek.getVerkortenaam());
+    		preparedStatement.setInt(2, decadeSchermDefinitieRubriek.getNiveau());
+    		preparedStatement.setString(3, decadeSchermDefinitieRubriek.getType());
+    		preparedStatement.setString(4, decadeSchermDefinitieRubriek.getTabelNaam());
+    		preparedStatement.setString(5, decadeSchermDefinitieRubriek.getTabelKolomnaam());
+    		
+    		ResultSet rs = preparedStatement.executeQuery();
+    		
+    		if (rs.next()) {
+    			
+    			decadeSchermDefinitieRubriek.setVerkortenaam(rs.getString("DRSD_DRPR_VERKORTE_NAAM"));
+    			decadeSchermDefinitieRubriek.setNiveau(rs.getInt("DRSD_NIVEAU"));
+    			decadeSchermDefinitieRubriek.setType(rs.getString("RRIS_TYPE"));
+    			decadeSchermDefinitieRubriek.setTabelNaam(rs.getString("KOLM_TABE_NAAM"));
+    			decadeSchermDefinitieRubriek.setTabelKolomnaam(rs.getString("KOLM_NAAM"));
+    			decadeSchermDefinitieRubriek.setTabelDssmCode(rs.getString("KOLM_TABE_DSSM_CODE"));
+    			
+    			decadeSchermDefinitieRubriek.setPrompt(rs.getString("PROMPT"));
+    			decadeSchermDefinitieRubriek.setIndicatieOpvraagbaar(rs.getInt("IND_OPVRAAGBAAR"));
+    			decadeSchermDefinitieRubriek.setIndicatieVeldTonen(rs.getInt("IND_VELD_TONEN"));
+    			decadeSchermDefinitieRubriek.setVeldVolgnummer(rs.getInt("VELD_VOLGNUMMER"));
+    			decadeSchermDefinitieRubriek.setVeldBreedte(rs.getInt("VELD_BREEDTE"));
+    			decadeSchermDefinitieRubriek.setSorteerVolgorde(rs.getInt("SORTEER_VOLGORDE"));
+    			decadeSchermDefinitieRubriek.setIndicatieLeegVeldVolgen(rs.getInt("IND_LEEG_VELD_VOLGEN"));
+    			decadeSchermDefinitieRubriek.setIndicatieVerplicht(rs.getInt("IND_VERPLICHT"));
+    			decadeSchermDefinitieRubriek.setIndicatieHoofdletters(rs.getInt("IND_HOOFDLETTERS"));
+    			decadeSchermDefinitieRubriek.setIndicatieVasteLengte(rs.getInt("IND_VASTE_LENGTE"));
+    			decadeSchermDefinitieRubriek.setIndicatieWijzigbaar(rs.getInt("IND_WIJZIGBAAR"));
+    			decadeSchermDefinitieRubriek.setIndicatieDisplayOnly(rs.getInt("IND_DISPLAY_ONLY"));
+    			decadeSchermDefinitieRubriek.setWijzeVanTonen(rs.getString("WIJZE_VAN_TONEN"));
+    			decadeSchermDefinitieRubriek.setNaamPopList(rs.getString("NAAM_POP_LIST"));
+    			decadeSchermDefinitieRubriek.setNaamLov(rs.getString("NAAM_LOV"));
+    			decadeSchermDefinitieRubriek.setHintText(rs.getString("HINT_TEXT"));
+    			decadeSchermDefinitieRubriek.setHelptekstDeelsysteem(rs.getString("HELPTEKST_DEELSYSTEEM"));
+    			decadeSchermDefinitieRubriek.setHelptekstGebruiker(rs.getString("HELPTEKST_GEBRUIKER"));
+    			decadeSchermDefinitieRubriek.setIndicatieOpvraagbaarVerplicht(rs.getInt("IND_OPVRAAGBAAR_VERPLICHT"));
+    			decadeSchermDefinitieRubriek.setXPositieVIScherm(rs.getInt("X_POSITIE_VI_SCHERM"));
+    			decadeSchermDefinitieRubriek.setYPositieVIScherm(rs.getInt("Y_POSITIE_VI_SCHERM"));
+    			decadeSchermDefinitieRubriek.setPlsqlCheck(rs.getString("PLSQL_CHECK"));
+    			decadeSchermDefinitieRubriek.setSorteerSoort(rs.getString("SORTEER_SOORT"));
+    			decadeSchermDefinitieRubriek.setVeldBreedteLovItem(rs.getInt("VELD_BREEDTE_LOVITEM"));
+    			decadeSchermDefinitieRubriek.setMaximumLengte(rs.getInt("MAXIMUM_LENGTE"));
+    			decadeSchermDefinitieRubriek.setDescriptorFunctie(rs.getString("DESCRIPTOR_FUNCTIE"));
+    			decadeSchermDefinitieRubriek.setVasteBeperking(rs.getString("VASTE_BEPERKING"));
+    			
+    		}
+
+   			rs.close();
+   			preparedStatement.close();
+   			closeConnection(connection);
+   			
+    	} catch(Exception e) {
+    		return null;
+    	}
+
+        return decadeSchermDefinitieRubriek;
+        
+    }
+
     public List<DecadeSchermDefinitieRubrieken> findAllRubrieken(
     		DecadeEnvironment decadeEnvironment, 
     		String verkortenaam, 
     		int niveau,
-    		String type,
-    		String werkvanuit) {
+    		String type) {
     	
     	List<DecadeSchermDefinitieRubrieken> listDecadeSchermDefinitieRubrieken = new ArrayList<DecadeSchermDefinitieRubrieken>();
-    	
+
     	try {
-    		
 
     		Connection connection = getConnection(decadeEnvironment);
 
-    		PreparedStatement preparedStatement = connection.prepareStatement(getSQL());
+    		PreparedStatement preparedStatement = connection.prepareStatement(getSQLAllRubrieken());
     		
     		preparedStatement.setString(1, verkortenaam);
     		preparedStatement.setInt(2, niveau);
@@ -76,33 +144,40 @@ public class DecadeSchermDefinitieRubriekenDao extends DefaultDao {
  
     			DecadeSchermDefinitieRubrieken decadeSchermDefinitieRubrieken = new DecadeSchermDefinitieRubrieken();
 
-    			decadeSchermDefinitieRubrieken.setVerkortenaam(rs.getString("ASDF_APDF_VERKORTE_NAAM"));
-    			decadeSchermDefinitieRubrieken.setNiveau(rs.getInt("ASDF_NIVEAU"));
-    			decadeSchermDefinitieRubrieken.setType(rs.getString("ARIS_TYPE"));
-    			
-    			decadeSchermDefinitieRubrieken.setTabelnaam(rs.getString("KOLM_TABE_NAAM"));
-    			decadeSchermDefinitieRubrieken.setKolomnaam(rs.getString("KOLM_NAAM"));
+    			decadeSchermDefinitieRubrieken.setVerkortenaam(rs.getString("DRSD_DRPR_VERKORTE_NAAM"));
+    			decadeSchermDefinitieRubrieken.setNiveau(rs.getInt("DRSD_NIVEAU"));
+    			decadeSchermDefinitieRubrieken.setType(rs.getString("RRIS_TYPE"));
+    			decadeSchermDefinitieRubrieken.setTabelNaam(rs.getString("KOLM_TABE_NAAM"));
+    			decadeSchermDefinitieRubrieken.setTabelKolomnaam(rs.getString("KOLM_NAAM"));
+    			decadeSchermDefinitieRubrieken.setTabelDssmCode(rs.getString("KOLM_TABE_DSSM_CODE"));
     			
     			decadeSchermDefinitieRubrieken.setPrompt(rs.getString("PROMPT"));
-    			decadeSchermDefinitieRubrieken.setPromptAangepast(rs.getString("PROMPT_AANGP"));
-    			
+    			decadeSchermDefinitieRubrieken.setIndicatieOpvraagbaar(rs.getInt("IND_OPVRAAGBAAR"));
+    			decadeSchermDefinitieRubrieken.setIndicatieVeldTonen(rs.getInt("IND_VELD_TONEN"));
     			decadeSchermDefinitieRubrieken.setVeldVolgnummer(rs.getInt("VELD_VOLGNUMMER"));
-    			decadeSchermDefinitieRubrieken.setVeldVolgnummerAangepast(rs.getInt("VELD_VOLGNUMMER_AANGP"));
     			decadeSchermDefinitieRubrieken.setVeldBreedte(rs.getInt("VELD_BREEDTE"));
-    			decadeSchermDefinitieRubrieken.setVeldBreedteAangepast(rs.getInt("VELD_BREEDTE_AANGP"));
-    			decadeSchermDefinitieRubrieken.setVeldTonen(rs.getInt("IND_VELD_TONEN"));
-    			decadeSchermDefinitieRubrieken.setVeldTonenAangepast(rs.getInt("IND_VELD_TONEN_AANGP"));
-    			decadeSchermDefinitieRubrieken.setVeldAlleenTonen(rs.getInt("IND_LEEG_VELD_VOLGEN"));
-    			decadeSchermDefinitieRubrieken.setVeldAlleenTonenAangepast(rs.getInt("IND_LEEG_VELD_VOLGEN_AANGP"));
-    			
-    			decadeSchermDefinitieRubrieken.setVerplicht(rs.getInt("IND_VERPLICHT"));
-    			decadeSchermDefinitieRubrieken.setVerplichtAangepast(rs.getInt("IND_VERPLICHT_AANGP"));
-    			decadeSchermDefinitieRubrieken.setWijzigbaar(rs.getInt("IND_WIJZIGBAAR"));
-    			decadeSchermDefinitieRubrieken.setWijzigbaarAangepast(rs.getInt("IND_WIJZIGBAAR_AANGP"));
-    			decadeSchermDefinitieRubrieken.setHoofdletters(rs.getInt("IND_HOOFDLETTERS"));
-    			decadeSchermDefinitieRubrieken.setHoofdlettersAangepast(rs.getInt("IND_HOOFDLETTERS_AANGP"));
+    			decadeSchermDefinitieRubrieken.setSorteerVolgorde(rs.getInt("SORTEER_VOLGORDE"));
+    			decadeSchermDefinitieRubrieken.setIndicatieLeegVeldVolgen(rs.getInt("IND_LEEG_VELD_VOLGEN"));
+    			decadeSchermDefinitieRubrieken.setIndicatieVerplicht(rs.getInt("IND_VERPLICHT"));
+    			decadeSchermDefinitieRubrieken.setIndicatieHoofdletters(rs.getInt("IND_HOOFDLETTERS"));
+    			decadeSchermDefinitieRubrieken.setIndicatieVasteLengte(rs.getInt("IND_VASTE_LENGTE"));
+    			decadeSchermDefinitieRubrieken.setIndicatieWijzigbaar(rs.getInt("IND_WIJZIGBAAR"));
+    			decadeSchermDefinitieRubrieken.setIndicatieDisplayOnly(rs.getInt("IND_DISPLAY_ONLY"));
+    			decadeSchermDefinitieRubrieken.setWijzeVanTonen(rs.getString("WIJZE_VAN_TONEN"));
+    			decadeSchermDefinitieRubrieken.setNaamPopList(rs.getString("NAAM_POP_LIST"));
+    			decadeSchermDefinitieRubrieken.setNaamLov(rs.getString("NAAM_LOV"));
     			decadeSchermDefinitieRubrieken.setHintText(rs.getString("HINT_TEXT"));
-    			decadeSchermDefinitieRubrieken.setHintTextAangepast(rs.getString("HINT_TEXT_AANGP"));
+    			decadeSchermDefinitieRubrieken.setHelptekstDeelsysteem(rs.getString("HELPTEKST_DEELSYSTEEM"));
+    			decadeSchermDefinitieRubrieken.setHelptekstGebruiker(rs.getString("HELPTEKST_GEBRUIKER"));
+    			decadeSchermDefinitieRubrieken.setIndicatieOpvraagbaarVerplicht(rs.getInt("IND_OPVRAAGBAAR_VERPLICHT"));
+    			decadeSchermDefinitieRubrieken.setXPositieVIScherm(rs.getInt("X_POSITIE_VI_SCHERM"));
+    			decadeSchermDefinitieRubrieken.setYPositieVIScherm(rs.getInt("Y_POSITIE_VI_SCHERM"));
+    			decadeSchermDefinitieRubrieken.setPlsqlCheck(rs.getString("PLSQL_CHECK"));
+    			decadeSchermDefinitieRubrieken.setSorteerSoort(rs.getString("SORTEER_SOORT"));
+    			decadeSchermDefinitieRubrieken.setVeldBreedteLovItem(rs.getInt("VELD_BREEDTE_LOVITEM"));
+    			decadeSchermDefinitieRubrieken.setMaximumLengte(rs.getInt("MAXIMUM_LENGTE"));
+    			decadeSchermDefinitieRubrieken.setDescriptorFunctie(rs.getString("DESCRIPTOR_FUNCTIE"));
+    			decadeSchermDefinitieRubrieken.setVasteBeperking(rs.getString("VASTE_BEPERKING"));
     			
     			listDecadeSchermDefinitieRubrieken.add(decadeSchermDefinitieRubrieken);
 
@@ -122,80 +197,36 @@ public class DecadeSchermDefinitieRubriekenDao extends DefaultDao {
     	
     }
     
-    private String getSQL() {
+    private String getSQLAllRubrieken() {
     	
-    	return "SELECT " + 
-			"ASDF_APDF_VERKORTE_NAAM, " + 
-			"ASDF_NIVEAU, " + 
-			"ARIS_TYPE, " + 
-			"KOLM_TABE_NAAM, " + 
-			"KOLM_NAAM, " + 
-			"PROMPT, " + 
-			"PROMPT_AANGP, " + 
-			"IND_OPVRAAGBAAR, " + 
-			"IND_OPVRAAGBAAR_AANGP, " + 
-			"IND_VELD_TONEN, " + 
-			"IND_VELD_TONEN_AANGP, " + 
-			"VELD_VOLGNUMMER, " + 
-			"VELD_VOLGNUMMER_AANGP, " + 
-			"VELD_BREEDTE, " + 
-			"VELD_BREEDTE_AANGP, " + 
-			"SORTEER_VOLGORDE, " + 
-			"SORTEER_VOLGORDE_AANGP, " + 
-			"IND_LEEG_VELD_VOLGEN, " + 
-			"IND_LEEG_VELD_VOLGEN_AANGP, " + 
-			"IND_VERPLICHT, " + 
-			"IND_VERPLICHT_AANGP, " + 
-			"IND_HOOFDLETTERS, " + 
-			"IND_HOOFDLETTERS_AANGP, " + 
-			"IND_VASTE_LENGTE, " + 
-			"IND_VASTE_LENGTE_AANGP, " + 
-			"IND_WIJZIGBAAR, " + 
-			"IND_WIJZIGBAAR_AANGP, " + 
-			"IND_DISPLAY_ONLY, " + 
-			"IND_DISPLAY_ONLY_AANGP, " + 
-			"WIJZE_VAN_TONEN, " + 
-			"WIJZE_VAN_TONEN_AANGP, " + 
-			"NAAM_POP_LIST, " + 
-			"NAAM_POP_LIST_AANGP, " + 
-			"NAAM_LOV, " + 
-			"NAAM_LOV_AANGP, " + 
-			"HINT_TEXT, " + 
-			"HINT_TEXT_AANGP, " + 
-			"HELPTEKST_DEELSYSTEEM, " + 
-			"HELPTEKST_DEELSYSTEEM_AANGP, " + 
-			"HELPTEKST_GEBRUIKER, " + 
-			"HELPTEKST_GEBRUIKER_AANGP, " + 
-			"IND_OPVRAAGBAAR_VERPLICHT, " + 
-			"IND_OPVRAAGBAAR_VERPLICHT_AANG, " + 
-			"X_POSITIE_VI_SCHERM, " + 
-			"X_POSITIE_VI_SCHERM_AANGP, " + 
-			"Y_POSITIE_VI_SCHERM, " + 
-			"Y_POSITIE_VI_SCHERM_AANGP, " + 
-			"PLSQL_CHECK, " + 
-			"PLSQL_CHECK_AANGP, " + 
-			"SORTEER_SOORT, " + 
-			"SORTEER_SOORT_AANGP, " + 
-			"VELD_BREEDTE_LOVITEM, " + 
-			"VELD_BREEDTE_LOVITEM_AANGP, " + 
-			"MAXIMUM_LENGTE, " + 
-			"MAXIMUM_LENGTE_AANGP, " + 
-			"DESCRIPTOR_FUNCTIE, " + 
-			"VASTE_BEPERKING, " + 
-			"VASTE_BEPERKING_AANGP " + 
-			"FROM DF_AANGP_RUBRIEKEN_IN_SCHERM " + 
-			"WHERE ASDF_APDF_DSSM_CODE = 'DF' " + 
-			"AND ASDF_APDF_VERKORTE_NAAM = ? " + 
-			"AND ASDF_APDF_GEBG_CODE = 'AAN' " + 
-			"AND ASDF_NIVEAU = ? " + 
-			"AND ARIS_TYPE = ? " + 
-			"ORDER BY " + 
-			"ASDF_APDF_VERKORTE_NAAM, " + 
-			"ASDF_NIVEAU, " + 
-			"ARIS_TYPE, " + 
-			"VELD_VOLGNUMMER_AANGP, " + 
+    	return "SELECT * " + 
+			"FROM DF_RUN_RUBRIEKEN_IN_SCHERM " + 
+			"WHERE DRSD_DRPR_DSSM_CODE = 'DF' " + 
+			"AND DRSD_DRPR_VERKORTE_NAAM = ? " + 
+			"AND DRSD_DRPR_GEBG_CODE = 'DF' " + 
+			"AND DRSD_NIVEAU = ? " + 
+			"AND RRIS_TYPE = ? " +
+			"ORDER BY DRSD_DRPR_DSSM_CODE, " + 
+			"DRSD_DRPR_VERKORTE_NAAM, " + 
+			"DRSD_DRPR_GEBG_CODE, " +
+			"DRSD_NIVEAU, " +
+			"RRIS_TYPE, " +
 			"VELD_VOLGNUMMER";
 
     }
-    
+
+    private String getSQLRubriek() {
+    	
+    	return "SELECT * " + 
+			"FROM DF_RUN_RUBRIEKEN_IN_SCHERM " + 
+			"WHERE DRSD_DRPR_DSSM_CODE = 'DF' " + 
+			"AND DRSD_DRPR_VERKORTE_NAAM = ? " + 
+			"AND DRSD_DRPR_GEBG_CODE = 'DF' " + 
+			"AND DRSD_NIVEAU = ? " + 
+			"AND RRIS_TYPE = ? " +
+			"AND KOLM_TABE_NAAM = ? " +
+			"AND KOLM_NAAM = ? ";
+
+    }
+
 }

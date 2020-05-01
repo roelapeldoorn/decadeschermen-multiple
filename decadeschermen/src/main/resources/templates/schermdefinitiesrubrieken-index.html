@@ -15,9 +15,9 @@
  		<th:block th:replace="fragments/common-environment :: common-environment"/>   
     	<p />
        	<h3>Kolommen voor: 
-       		<span th:text="${schermdefinitie.verkortenaam}" th:remove="tag"></span> / 
-       		<span th:text="${schermdefinitie.niveau}" th:remove="tag"></span> / 
-       		<span th:text="${schermdefinitie.typeOmschrijving}" th:remove="tag"></span>
+       		<span th:text="${schermdefinitietype.verkortenaam}" th:remove="tag"></span> / 
+       		<span th:text="${schermdefinitietype.niveau}" th:remove="tag"></span> / 
+       		<span th:text="${schermdefinitietype.typeOmschrijving}" th:remove="tag"></span>
        	</h3>
         <div class="card">
         	<div class="card-body">
@@ -34,12 +34,12 @@
                                 </thead>
                                 <tbody>
                                     <tr th:each="rubriek : ${schermdefinitiesrubrieken}">
-                                    	<td th:text="${rubriek.tabelnaam}"></td>
-                                    	<td th:text="${rubriek.kolomnaam}"></td>
-                                    	<td th:text="${rubriek.promptIndex}"></td>
+                                    	<td th:text="${rubriek.tabelNaam}"></td>
+                                    	<td th:text="${rubriek.tabelKolomnaam}"></td>
+                                    	<td th:text="${rubriek.prompt}"></td>
                                     	<td th:text="${rubriek.veldVolgnummer}"></td>
                                         <td>
-                                        	<a th:href="@{/schermdefinitiesrubrieken/edit/environmentid/{environmentid}/verkortenaam/{verkortenaam}/niveau/{niveau}/type/{type}/tabel/{tabelnaam}/kolom/{kolomnaam} (environmentid=${environment.environmentid},verkortenaam=${schermdefinitie.verkortenaam},niveau=${schermdefinitie.niveau},type=${schermdefinitie.type},tabelnaam=${rubriek.tabelnaam},kolomnaam=${rubriek.kolomnaam})}" class="btn btn-primary">Wijzig</a>
+                                        	<a th:href="@{/schermdefinitiesrubrieken/edit/environmentid/{environmentid}/verkortenaam/{verkortenaam}/niveau/{niveau}/type/{type}/tabelnaam/{tabelNaam}/kolomnaam/{tabelKolomnaam} (environmentid=${environment.environmentid},verkortenaam=${rubriek.verkortenaam},niveau=${rubriek.niveau},type=${rubriek.type},tabelNaam=${rubriek.tabelNaam},tabelKolomnaam=${rubriek.tabelKolomnaam})}" class="btn btn-primary">Wijzig</a>
                                         </td>
                                     </tr>
                                 </tbody>

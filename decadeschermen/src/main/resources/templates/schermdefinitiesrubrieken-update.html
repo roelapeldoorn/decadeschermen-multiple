@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.springframework.org/security/tags">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Variabele indeling DECADE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/decadeschermen/css/bootstrap.min.css">
+</head>
+
+<body>
+	<th:block th:replace="fragments/common-header :: common-header"/>
+    <div class="container my-2">
+ 		<th:block th:replace="fragments/common-environment :: common-environment"/>   
+    	<h3>Wijzigen kolom</h3>
+        <div class="card">
+        	<div class="card-body-environment">
+            	<table class="table-borderless table-sm">
+                	<tbody>
+                    	<tr>
+                        	<th>Schermdefinitie</th>
+							<td th:text="${schermdefinitiesrubriek.verkortenaam}"></td>
+                        </tr>
+                    	<tr>
+                        	<th>Niveau</th>
+							<td th:text="${schermdefinitiesrubriek.niveau}"></td>
+                        </tr>
+                    	<tr>
+                        	<th>Type</th>
+							<td th:text="${schermdefinitiesrubriek.typeTekst}"></td>
+                        </tr>
+                    	<tr>
+                        	<th>Tabelnaam</th>
+							<td th:text="${schermdefinitiesrubriek.tabelNaam}"></td>
+                        </tr>
+                    	<tr>
+                        	<th>Kolomnaam</th>
+							<td th:text="${schermdefinitiesrubriek.tabelKolomnaam}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+		</div> 
+		
+		<div class="card">
+            <div class="card-body">
+                <div class="col-md-8">
+                     <form action="#" th:action="@{/environments/update/{environmentid}(environmentid=${environment.environmentid})}" th:object="${schermdefinitiesrubriek}" method="post">
+		            	<table class="table-borderless table-sm">
+        		        	<tbody>
+                		    	<tr>
+                        			<th><label for="prompt" class="col-form-label-rubrieken">Prompt</label></th>
+                        			<td><div class="form-group col-md-8">
+                                			<input type="text" th:field="*{prompt}" size="40" maxlength="100" class="form-control" id="prompt" placeholder="Prompt" />
+                                			<span th:if="${#fields.hasErrors('prompt')}" th:errors="*{prompt}" class="text-danger"></span>
+                           				</div>
+                           			</td>
+                        		</tr>
+                        	</tbody>
+                        </table>
+                        
+                        <div class="row">
+		                   
+		                   <div class="col-md-6">
+                                <input type="submit" class="btn btn-primary" value="Opslaan">
+                                <input type="button" class="btn btn-primary" value="Annuleer" onclick="history.back()">
+                           </div>
+                           <div class="form-group col-md-8"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+		</div>
+    </div>
+   
+    <th:block th:replace="fragments/common-footer :: common-footer"/>
+    
+</body>
+</html>

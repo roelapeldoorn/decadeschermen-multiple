@@ -1,50 +1,44 @@
 package nl.itris.decadeschermen.oracle.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.Immutable;
-
 public class DecadeSchermDefinitieRubrieken {
 
     private String verkortenaam;
     private int niveau;
     private String type;
     
-    private String tabelnaam;
-    private String kolomnaam;
+    private String tabelNaam;
+    private String tabelKolomnaam;
+    private String tabelDssmCode;
     
     private String prompt;
-    private String promptAangepast;
-    
+    private int indicatieOpvraagbaar;   
+    private int indicatieVeldTonen;   
     private int veldVolgnummer;
-    private int veldVolgnummerAangepast;
     private int veldBreedte;
-    private int veldBreedteAangepast;
-
-    private int veldTonen;
-    private int veldTonenAangepast;
-   
-    private int veldAlleenTonen;
-    private int veldAlleenTonenAangepast;
-    
-    private int veldOpvraagbaar;   
-    private int veldOpvraagbaarAangepast;
-    
-    private int verplicht;
-    private int verplichtAangepast;
-    private int wijzigbaar;
-    private int wijzigbaarAangepast;
-    private int hoofdlettersAangepast;
-    private int hoofdletters;
-    
+    private int sorteerVolgorde;
+    private int indicatieLeegVeldVolgen;
+    private int indicatieVerplicht;
+    private int indicatieHoofdletters;
+    private int indicatieVasteLengte;
+    private int indicatieWijzigbaar;
+    private int indicatieDisplayOnly;
+    private String wijzeVanTonen;
+    private String naamPopList;
+    private String naamLov;
     private String hintText;
-    private String hintTextAangepast;
-    
-    private String typeOmschrijving;
-    
-	public String getVerkortenaam() {
+    private String helptekstDeelsysteem;
+    private String helptekstGebruiker;
+    private int indicatieOpvraagbaarVerplicht;
+    private int xPositieVIScherm;
+    private int yPositieVIScherm;
+    private String plsqlCheck;
+    private String sorteerSoort;
+    private int veldBreedteLovItem;
+    private int maximumLengte;
+    private String descriptorFunctie;
+    private String vasteBeperking;
+
+    public String getVerkortenaam() {
 		return verkortenaam;
 	}
 	public void setVerkortenaam(String verkortenaam) {
@@ -59,54 +53,62 @@ public class DecadeSchermDefinitieRubrieken {
 	public String getType() {
 		return type;
 	}
-	public void setType(String type) {
-		this.type = type;
+
+	public String getTypeTekst() {
 		if (type.toUpperCase().equals("RIN")) {
-			this.typeOmschrijving = "Navigatiescherm";
+			return "Navigatiescherm";
 		} else if (type.toUpperCase().equals("ROS")) {
-			this.typeOmschrijving = "Overzichtsscherm";
+			return "Overzichtsscherm";
 		} else if (type.toUpperCase().equals("RPP")) {
-			this.typeOmschrijving = "Eigenschappenscherm";
+			return "Eigenschappenscherm";
 		} else if (type.toUpperCase().equals("RVI")) {
-			this.typeOmschrijving = "Variabel invoerscherm";
+			return "Variabel invoerscherm";
 		} else {
-			this.typeOmschrijving = "Onbekend";
+			return "Onbekend";
 		}
 	}
-	public String getTypeOmschrijving() {
-		return typeOmschrijving;
+
+	public void setType(String type) {
+		this.type = type;
 	}
-	public String getTabelnaam() {
-		return tabelnaam;
+
+	public String getTabelNaam() {
+		return tabelNaam;
 	}
-	public void setTabelnaam(String tabelnaam) {
-		this.tabelnaam = tabelnaam;
+	public void setTabelNaam(String tabelNaam) {
+		this.tabelNaam = tabelNaam;
 	}
-	public String getKolomnaam() {
-		return kolomnaam;
+	public String getTabelKolomnaam() {
+		return tabelKolomnaam;
 	}
-	public void setKolomnaam(String kolomnaam) {
-		this.kolomnaam = kolomnaam;
+	public void setTabelKolomnaam(String tabelKolomnaam) {
+		this.tabelKolomnaam = tabelKolomnaam;
 	}
+	public String getTabelDssmCode() {
+		return tabelDssmCode;
+	}
+	public void setTabelDssmCode(String tabelDssmCode) {
+		this.tabelDssmCode = tabelDssmCode;
+	}
+
 	public String getPrompt() {
 		return prompt;
 	}
 	public void setPrompt(String prompt) {
 		this.prompt = prompt;
 	}
-	public String getPromptAangepast() {
-		return promptAangepast;
+	
+	public int getIndicatieOpvraagbaar() {
+		return indicatieOpvraagbaar;
 	}
-
-	public String getPromptIndex() {
-		if (this.promptAangepast != null) {
-			return "(*) " + this.promptAangepast;
-		}
-		return promptAangepast;
+	public void setIndicatieOpvraagbaar(int indicatieOpvraagbaar) {
+		this.indicatieOpvraagbaar = indicatieOpvraagbaar;
 	}
-
-	public void setPromptAangepast(String promptAangepast) {
-		this.promptAangepast = promptAangepast;
+	public int getIndicatieVeldTonen() {
+		return indicatieVeldTonen;
+	}
+	public void setIndicatieVeldTonen(int indicatieVeldTonen) {
+		this.indicatieVeldTonen = indicatieVeldTonen;
 	}
 	public int getVeldVolgnummer() {
 		return veldVolgnummer;
@@ -114,95 +116,71 @@ public class DecadeSchermDefinitieRubrieken {
 	public void setVeldVolgnummer(int veldVolgnummer) {
 		this.veldVolgnummer = veldVolgnummer;
 	}
-	public int getVeldVolgnummerAangepast() {
-		return veldVolgnummerAangepast;
-	}
-	public void setVeldVolgnummerAangepast(int veldVolgnummerAangepast) {
-		this.veldVolgnummerAangepast = veldVolgnummerAangepast;
-	}
 	public int getVeldBreedte() {
 		return veldBreedte;
 	}
 	public void setVeldBreedte(int veldBreedte) {
 		this.veldBreedte = veldBreedte;
 	}
-	public int getVeldBreedteAangepast() {
-		return veldBreedteAangepast;
+	public int getSorteerVolgorde() {
+		return sorteerVolgorde;
 	}
-	public void setVeldBreedteAangepast(int veldBreedteAangepast) {
-		this.veldBreedteAangepast = veldBreedteAangepast;
+	public void setSorteerVolgorde(int sorteerVolgorde) {
+		this.sorteerVolgorde = sorteerVolgorde;
 	}
-	public int getVeldTonen() {
-		return veldTonen;
+	public int getIndicatieLeegVeldVolgen() {
+		return indicatieLeegVeldVolgen;
 	}
-	public void setVeldTonen(int veldTonen) {
-		this.veldTonen = veldTonen;
+	public void setIndicatieLeegVeldVolgen(int indicatieLeegVeldVolgen) {
+		this.indicatieLeegVeldVolgen = indicatieLeegVeldVolgen;
 	}
-	public int getVeldTonenAangepast() {
-		return veldTonenAangepast;
+	public int getIndicatieVerplicht() {
+		return indicatieVerplicht;
 	}
-	public void setVeldTonenAangepast(int veldTonenAangepast) {
-		this.veldTonenAangepast = veldTonenAangepast;
+	public void setIndicatieVerplicht(int indicatieVerplicht) {
+		this.indicatieVerplicht = indicatieVerplicht;
 	}
-	public int getVeldAlleenTonen() {
-		return veldAlleenTonen;
+	public int getIndicatieHoofdletters() {
+		return indicatieHoofdletters;
 	}
-	public void setVeldAlleenTonen(int veldAlleenTonen) {
-		this.veldAlleenTonen = veldAlleenTonen;
+	public void setIndicatieHoofdletters(int indicatieHoofdletters) {
+		this.indicatieHoofdletters = indicatieHoofdletters;
 	}
-	public int getVeldAlleenTonenAangepast() {
-		return veldAlleenTonenAangepast;
+	public int getIndicatieVasteLengte() {
+		return indicatieVasteLengte;
 	}
-	public void setVeldAlleenTonenAangepast(int veldAlleenTonenAangepast) {
-		this.veldAlleenTonenAangepast = veldAlleenTonenAangepast;
+	public void setIndicatieVasteLengte(int indicatieVasteLengte) {
+		this.indicatieVasteLengte = indicatieVasteLengte;
 	}
-	public int getVeldOpvraagbaar() {
-		return veldOpvraagbaar;
+	public int getIndicatieWijzigbaar() {
+		return indicatieWijzigbaar;
 	}
-	public void setVeldOpvraagbaar(int veldOpvraagbaar) {
-		this.veldOpvraagbaar = veldOpvraagbaar;
+	public void setIndicatieWijzigbaar(int indicatieWijzigbaar) {
+		this.indicatieWijzigbaar = indicatieWijzigbaar;
 	}
-	public int getVeldOpvraagbaarAangepast() {
-		return veldOpvraagbaarAangepast;
+	public int getIndicatieDisplayOnly() {
+		return indicatieDisplayOnly;
 	}
-	public void setVeldOpvraagbaarAangepast(int veldOpvraagbaarAangepast) {
-		this.veldOpvraagbaarAangepast = veldOpvraagbaarAangepast;
+	public void setIndicatieDisplayOnly(int indicatieDisplayOnly) {
+		this.indicatieDisplayOnly = indicatieDisplayOnly;
 	}
-	public int getVerplicht() {
-		return verplicht;
+	public String getWijzeVanTonen() {
+		return wijzeVanTonen;
 	}
-	public void setVerplicht(int verplicht) {
-		this.verplicht = verplicht;
+	public void setWijzeVanTonen(String wijzeVanTonen) {
+		this.wijzeVanTonen = wijzeVanTonen;
 	}
-	public int getVerplichtAangepast() {
-		return verplichtAangepast;
+	public String getNaamPopList() {
+		return naamPopList;
 	}
-	public void setVerplichtAangepast(int verplichtAangepast) {
-		this.verplichtAangepast = verplichtAangepast;
+	public void setNaamPopList(String naamPopList) {
+		this.naamPopList = naamPopList;
 	}
-	public int getWijzigbaar() {
-		return wijzigbaar;
+	public String getNaamLov() {
+		return naamLov;
 	}
-	public void setWijzigbaar(int wijzigbaar) {
-		this.wijzigbaar = wijzigbaar;
-	}
-	public int getWijzigbaarAangepast() {
-		return wijzigbaarAangepast;
-	}
-	public void setWijzigbaarAangepast(int wijzigbaarAangepast) {
-		this.wijzigbaarAangepast = wijzigbaarAangepast;
-	}
-	public int getHoofdlettersAangepast() {
-		return hoofdlettersAangepast;
-	}
-	public void setHoofdlettersAangepast(int hoofdlettersAangepast) {
-		this.hoofdlettersAangepast = hoofdlettersAangepast;
-	}
-	public int getHoofdletters() {
-		return hoofdletters;
-	}
-	public void setHoofdletters(int hoofdletters) {
-		this.hoofdletters = hoofdletters;
+	public void setNaamLov(String naamLov) {
+		this.naamLov = naamLov;
 	}
 	public String getHintText() {
 		return hintText;
@@ -210,15 +188,72 @@ public class DecadeSchermDefinitieRubrieken {
 	public void setHintText(String hintText) {
 		this.hintText = hintText;
 	}
-	public String getHintTextAangepast() {
-		return hintTextAangepast;
+	public String getHelptekstDeelsysteem() {
+		return helptekstDeelsysteem;
 	}
-	public void setHintTextAangepast(String hintTextAangepast) {
-		this.hintTextAangepast = hintTextAangepast;
+	public void setHelptekstDeelsysteem(String helptekstDeelsysteem) {
+		this.helptekstDeelsysteem = helptekstDeelsysteem;
 	}
-	public void setTypeOmschrijving(String typeOmschrijving) {
-		this.typeOmschrijving = typeOmschrijving;
+	public String getHelptekstGebruiker() {
+		return helptekstGebruiker;
 	}
+	public void setHelptekstGebruiker(String helptekstGebruiker) {
+		this.helptekstGebruiker = helptekstGebruiker;
+	}
+	public int getIndicatieOpvraagbaarVerplicht() {
+		return indicatieOpvraagbaarVerplicht;
+	}
+	public void setIndicatieOpvraagbaarVerplicht(int indicatieOpvraagbaarVerplicht) {
+		this.indicatieOpvraagbaarVerplicht = indicatieOpvraagbaarVerplicht;
+	}
+	public int getXPositieVIScherm() {
+		return xPositieVIScherm;
+	}
+	public void setXPositieVIScherm(int xPositieVIScherm) {
+		this.xPositieVIScherm = xPositieVIScherm;
+	}
+	public int getYPositieVIScherm() {
+		return yPositieVIScherm;
+	}
+	public void setYPositieVIScherm(int yPositieVIScherm) {
+		this.yPositieVIScherm = yPositieVIScherm;
+	}
+	public String getPlsqlCheck() {
+		return plsqlCheck;
+	}
+	public void setPlsqlCheck(String plsqlCheck) {
+		this.plsqlCheck = plsqlCheck;
+	}
+	public String getSorteerSoort() {
+		return sorteerSoort;
+	}
+	public void setSorteerSoort(String sorteerSoort) {
+		this.sorteerSoort = sorteerSoort;
+	}
+	public int getVeldBreedteLovItem() {
+		return veldBreedteLovItem;
+	}
+	public void setVeldBreedteLovItem(int veldBreedteLovItem) {
+		this.veldBreedteLovItem = veldBreedteLovItem;
+	}
+	public int getMaximumLengte() {
+		return maximumLengte;
+	}
+	public void setMaximumLengte(int maximumLengte) {
+		this.maximumLengte = maximumLengte;
+	}
+	public String getDescriptorFunctie() {
+		return descriptorFunctie;
+	}
+	public void setDescriptorFunctie(String descriptorFunctie) {
+		this.descriptorFunctie = descriptorFunctie;
+	}
+	public String getVasteBeperking() {
+		return vasteBeperking;
+	}
+	public void setVasteBeperking(String vasteBeperking) {
+		this.vasteBeperking = vasteBeperking;
+	}
+   
 
-	
 }
